@@ -1,5 +1,7 @@
 package org.echocat.kata.java.part1.controller;
 
+import org.echocat.kata.java.part1.domain.Author;
+import org.echocat.kata.java.part1.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -44,7 +46,7 @@ public class AuthorControllerTest {
     @DisplayName("Test for getting Author details ('v1/authors')")
     public void getAuthorsTest() throws Exception
     {
-        when(authorService.getAuthors()).thenReturn(Optional.of(buildAuthors()));
+        when(authorService.getAuthors()).thenReturn(buildAuthors());
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/authors")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
