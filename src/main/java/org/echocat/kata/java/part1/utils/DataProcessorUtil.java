@@ -17,6 +17,8 @@ public class DataProcessorUtil {
         CsvMapper mapper = new CsvMapper();
         CsvSchema schema = mapper.schemaFor(Author.class)
                 .withHeader()
+                .withArrayElementSeparator(",")
+                .withColumnSeparator(';')
                 .withColumnReordering(true);
         ObjectReader reader = mapper.readerFor(Author.class).with(schema);
         return reader.<Author>readValues(getFileStream("authors.csv")).readAll();
@@ -24,6 +26,6 @@ public class DataProcessorUtil {
 
     private static InputStream getFileStream(String fileName) {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        return classLoader.getResourceAsStream("data/".concat(fileName));
+        return classLoader.getResourceAsStream("org/echocat/kata/java/part1/data/".concat(fileName));
     }
 }
