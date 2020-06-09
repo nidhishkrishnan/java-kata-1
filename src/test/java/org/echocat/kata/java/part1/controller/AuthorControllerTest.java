@@ -43,16 +43,16 @@ public class AuthorControllerTest {
     }
 
     @Test
-    @DisplayName("Test for getting Author details ('v1/authors')")
+    @DisplayName("Test for getting Author details ('v1/authors/')")
     public void getAuthorsTest() throws Exception
     {
         when(authorService.getAuthors()).thenReturn(buildAuthors());
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/authors")
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/authors/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].firstName", is("someFirstName")))
-                .andExpect(jsonPath("$[0].lastName", is("someLastName")));
+                .andExpect(jsonPath("$[0].firstname", is("someFirstName")))
+                .andExpect(jsonPath("$[0].lastname", is("someLastName")));
     }
 
     private List<Author> buildAuthors() {
