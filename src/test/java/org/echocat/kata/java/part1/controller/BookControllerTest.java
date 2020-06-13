@@ -1,6 +1,7 @@
 package org.echocat.kata.java.part1.controller;
 
-import org.echocat.kata.java.part1.domain.Author;
+import org.echocat.kata.java.part1.domain.Book;
+import org.echocat.kata.java.part1.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,11 +51,15 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].title", is("someTitle")))
+                .andExpect(jsonPath("$[0].title", is("someTitle")));
     }
 
-    private List<Author> buildBooks() {
+    private List<Book> buildBooks() {
         Book book = new Book();
+        book.setAuthors(Collections.singletonList("someAuthor@email.com"));
+        book.setDescription("someDesc");
+        book.setIsbn("someIsbn");
+        book.setTitle("someTitle");
         return Collections.singletonList(book);
     }
 

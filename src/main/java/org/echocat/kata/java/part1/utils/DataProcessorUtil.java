@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.extern.slf4j.Slf4j;
 import org.echocat.kata.java.part1.domain.Author;
+import org.echocat.kata.java.part1.domain.Book;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +23,17 @@ public class DataProcessorUtil {
                 .withColumnReordering(true);
         ObjectReader reader = mapper.readerFor(Author.class).with(schema);
         return reader.<Author>readValues(getFileStream("authors.csv")).readAll();
+    }
+
+    public static List<Book> getAllBooks() throws IOException {
+        CsvMapper mapper = new CsvMapper();
+        CsvSchema schema = mapper.schemaFor(Book.class)
+                .withHeader()
+                .withArrayElementSeparator(",")
+                .withColumnSeparator(';')
+                .withColumnReordering(true);
+        ObjectReader reader = mapper.readerFor(Book.class).with(schema);
+        return reader.<Book>readValues(getFileStream("books.csv")).readAll();
     }
 
     private static InputStream getFileStream(String fileName) {
