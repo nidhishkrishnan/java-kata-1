@@ -5,7 +5,6 @@ import org.echocat.kata.java.part1.domain.Book;
 import org.echocat.kata.java.part1.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -14,7 +13,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    public List<Book> getBooks() throws IOException {
+    public List<Book> getBooks() {
         return bookRepository.getBooks();
     }
 }

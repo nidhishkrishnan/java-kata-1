@@ -5,7 +5,6 @@ import org.echocat.kata.java.part1.domain.Author;
 import org.echocat.kata.java.part1.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -14,7 +13,7 @@ public class AuthorService {
 
     private final AuthorRepository authorRepository;
 
-    public List<Author> getAuthors() throws IOException {
+    public List<Author> getAuthors() {
         return authorRepository.getAuthors();
     }
 }

@@ -4,36 +4,29 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.extern.slf4j.Slf4j;
-import org.echocat.kata.java.part1.domain.Author;
-import org.echocat.kata.java.part1.domain.Book;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
 public class DataProcessorUtil {
 
-    public static List<Author> getAllAuthors() throws IOException {
+    public static <T> List<T> readData(Class<T> clazz, String fileName) {
         CsvMapper mapper = new CsvMapper();
-        CsvSchema schema = mapper.schemaFor(Author.class)
+        CsvSchema schema = mapper.schemaFor(clazz)
                 .withHeader()
                 .withArrayElementSeparator(",")
                 .withColumnSeparator(';')
                 .withColumnReordering(true);
-        ObjectReader reader = mapper.readerFor(Author.class).with(schema);
-        return reader.<Author>readValues(getFileStream("authors.csv")).readAll();
-    }
-
-    public static List<Book> getAllBooks() throws IOException {
-        CsvMapper mapper = new CsvMapper();
-        CsvSchema schema = mapper.schemaFor(Book.class)
-                .withHeader()
-                .withArrayElementSeparator(",")
-                .withColumnSeparator(';')
-                .withColumnReordering(true);
-        ObjectReader reader = mapper.readerFor(Book.class).with(schema);
-        return reader.<Book>readValues(getFileStream("books.csv")).readAll();
+        ObjectReader reader = mapper.readerFor(clazz).with(schema);
+        try {
+            return reader.<T>readValues(getFileStream(fileName)).readAll();
+        } catch (IOException exception) {
+            log.warn("CSV file parsing failed {}", exception.getMessage());
+        }
+        return Collections.emptyList();
     }
 
     private static InputStream getFileStream(String fileName) {
