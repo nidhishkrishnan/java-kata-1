@@ -14,9 +14,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
+import static java.time.format.DateTimeFormatter.ofPattern;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
@@ -51,13 +55,13 @@ public class MagazineControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].title", is("someTitle")));
+                .andExpect(jsonPath("$[0].publishedAt", is(LocalDate.now().format(ofPattern("dd.MM.yyyy")))));
     }
 
     private List<Magazine> buildMagazines() {
         Magazine magazine = new Magazine();
         magazine.setAuthors(Collections.singletonList("someAuthor@email.com"));
-        magazine.setDescription("someDesc");
+        magazine.setPublishedAt(new Date());;
         magazine.setIsbn("someIsbn");
         magazine.setTitle("someTitle");
         return Collections.singletonList(magazine);

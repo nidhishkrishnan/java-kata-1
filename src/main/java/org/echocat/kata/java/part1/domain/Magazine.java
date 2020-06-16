@@ -1,8 +1,10 @@
 package org.echocat.kata.java.part1.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -15,5 +17,6 @@ public class Magazine {
 
     private List<String> authors;
 
-    private String description;
+    @JsonFormat(pattern="dd.MM.yyyy")
+    private Date publishedAt;
 }
