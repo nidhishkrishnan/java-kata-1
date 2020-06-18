@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +47,7 @@ public class MagazineControllerTest {
 
     @Test
     @DisplayName("Test for getting Magazine details ('v1/magazines/')")
-    public void getAuthorsTest() throws Exception
+    public void getMagazineTest() throws Exception
     {
         when(magazineService.getMagazines()).thenReturn(buildMagazines());
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/magazines/")

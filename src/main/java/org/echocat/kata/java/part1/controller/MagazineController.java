@@ -17,7 +17,7 @@ public class MagazineController {
     private final MagazineService magazineService;
 
     @GetMapping("/")
-    public List<Magazine> books() {
+    public List<Magazine> magazines() {
         return magazineService.getMagazines();
     }
 }

@@ -44,7 +44,7 @@ public class BookControllerTest {
 
     @Test
     @DisplayName("Test for getting Books details ('v1/books/')")
-    public void getAuthorsTest() throws Exception
+    public void getBooksTest() throws Exception
     {
         when(bookService.getBooks()).thenReturn(buildBooks());
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/books/")
