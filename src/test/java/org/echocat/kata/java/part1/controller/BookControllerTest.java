@@ -1,6 +1,7 @@
 package org.echocat.kata.java.part1.controller;
 
 import org.echocat.kata.java.part1.domain.Book;
+import org.echocat.kata.java.part1.domain.Magazine;
 import org.echocat.kata.java.part1.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,8 +15,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -46,7 +51,7 @@ public class BookControllerTest {
     @DisplayName("Test for getting Books details ('v1/books/')")
     public void getBooksTest() throws Exception
     {
-        when(bookService.getBooks()).thenReturn(buildBooks());
+       // when(bookService.getBooks()).thenReturn(buildBooks());
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/books/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -54,13 +59,27 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$[0].title", is("someTitle")));
     }
 
-    private List<Book> buildBooks() {
+    private List<? extends Magazine> buildBooks() {
         Book book = new Book();
         book.setAuthors(Collections.singletonList("someAuthor@email.com"));
         book.setDescription("someDesc");
         book.setIsbn("someIsbn");
         book.setTitle("someTitle");
-        return Collections.singletonList(book);
+        List<Book> books = new ArrayList();
+        books.add(book);
+
+        Magazine magazine = new Magazine();
+        magazine.setAuthors(Collections.singletonList("someAuthor@email.com"));
+        magazine.setPublishedAt(new Date());;
+        magazine.setIsbn("someIsbn");
+        magazine.setTitle("someTitle");
+        List<Magazine> magazines = new ArrayList();
+        magazines.add(magazine);
+
+        return Stream.of(books, magazines)
+                .flatMap(List::stream)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
 }

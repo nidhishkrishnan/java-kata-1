@@ -1,7 +1,7 @@
 package org.echocat.kata.java.part1.service;
 
 import lombok.RequiredArgsConstructor;
-import org.echocat.kata.java.part1.domain.Book;
+import org.echocat.kata.java.part1.domain.Magazine;
 import org.echocat.kata.java.part1.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    public List<Book> getBooks() {
+    public List<? extends Magazine> getBooks() {
         return bookRepository.getBooks();
     }
 }

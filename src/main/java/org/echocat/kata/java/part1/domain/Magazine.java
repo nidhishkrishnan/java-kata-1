@@ -5,18 +5,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Setter
 @Getter
-public class Magazine {
-
-    private String title;
-
-    private String isbn;
-
-    private List<String> authors;
+public class Magazine extends Publication {
 
     @JsonFormat(pattern="dd.MM.yyyy")
     private Date publishedAt;
+
+    public boolean isMagazine() {
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Magazine)) return false;
+        Magazine magazine = (Magazine) o;
+        return getIsbn() != null ? getIsbn().equals(magazine.getIsbn()) : magazine.getIsbn() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getIsbn() != null ? getIsbn().hashCode() : 0;
+    }
 }
