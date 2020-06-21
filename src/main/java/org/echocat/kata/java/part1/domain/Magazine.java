@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Setter
 @Getter
-public class Magazine extends Publication {
+public class Magazine extends Book {
 
     @JsonFormat(pattern="dd.MM.yyyy")
     private Date publishedAt;

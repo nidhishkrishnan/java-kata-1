@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Book extends Magazine {
+public class Book extends Publication {
 
     private String description;
 
