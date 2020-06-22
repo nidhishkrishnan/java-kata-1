@@ -62,15 +62,18 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$[1].publishedAt", is(LocalDate.now().format(ofPattern("dd.MM.yyyy")))));
     }
 
-    private List<Book> buildBooks() {
-        Book book = new Book();
-        book.setAuthors(Collections.singletonList("someAuthor@email.com"));
-        book.setDescription("someDesc");
-        book.setIsbn("someIsbn");
-        book.setTitle("someTitle");
-        List<Book> books = new ArrayList();
-        books.add(book);
+    @Test
+    @DisplayName("Test for getting Book by isbn ('v1/books/isbn/{isbn}')")
+    public void getBookByIsbnTest() throws Exception
+    {
+        when(bookService.findBookByIsbn("someIsbn123")).thenReturn(getBook());
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/books/isbn/{isbn}", "someIsbn123")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.isbn", is("someIsbn123")));
+    }
 
+    private List<Book> buildBooks() {
         Magazine magazine = new Magazine();
         magazine.setAuthors(Collections.singletonList("someAuthor@email.com"));
         magazine.setPublishedAt(new Date());;
@@ -79,10 +82,25 @@ public class BookControllerTest {
         List<Magazine> magazines = new ArrayList();
         magazines.add(magazine);
 
-        return Stream.of(books, magazines)
+        return Stream.of(getBooks(), magazines)
                 .flatMap(List::stream)
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    private List<Book> getBooks() {
+        List<Book> books = new ArrayList();
+        books.add(getBook());
+        return books;
+    }
+
+    private Book getBook() {
+        Book book = new Book();
+        book.setAuthors(Collections.singletonList("someAuthor123@email.com"));
+        book.setDescription("someDesc");
+        book.setIsbn("someIsbn123");
+        book.setTitle("someTitle");
+        return book;
     }
 
 }
