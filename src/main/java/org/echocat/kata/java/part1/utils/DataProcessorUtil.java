@@ -2,6 +2,7 @@ package org.echocat.kata.java.part1.utils;
 
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvParser;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +16,7 @@ public class DataProcessorUtil {
 
     public static <T> List<T> readData(Class<T> clazz, String fileName) {
         CsvMapper mapper = new CsvMapper();
+        mapper.enable(CsvParser.Feature.TRIM_SPACES);
         CsvSchema schema = mapper.schemaFor(clazz)
                 .withHeader()
                 .withArrayElementSeparator(",")
