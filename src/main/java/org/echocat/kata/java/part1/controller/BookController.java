@@ -31,4 +31,9 @@ public class BookController {
     public List<Book> bookByEmail(@PathVariable String emailId) {
         return bookService.findBooksByEmail(emailId);
     }
+
+    @GetMapping("/sort")
+    public List<Book> sortByTitle() {
+        return bookService.sortByTitle();
+    }
 }

@@ -18,7 +18,7 @@ public class BookRepository {
     public List<Book> getBooks() {
         List<Book> books = readData(Book.class, "books.csv");
         List<Magazine> magazines = readData(Magazine.class, "magazines.csv");
-        return Stream.of(magazines, books)
+        return Stream.of(books, magazines)
                 .flatMap(List::stream)
                 .distinct()
                 .collect(Collectors.toList());

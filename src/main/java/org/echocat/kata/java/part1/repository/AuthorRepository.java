@@ -13,6 +13,6 @@ public class AuthorRepository {
 
     @Cacheable("authors")
     public List<Author> getAuthors() {
-        return readData(Author.class, "author.csv");
+        return readData(Author.class, "authors.csv");
     }
 }
