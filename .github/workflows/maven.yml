@@ -28,4 +28,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: kata-1
-        path: path/to/artifact/ # or path/to/artifact
+        path: path/to/artifact/
