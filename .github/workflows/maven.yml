@@ -24,7 +24,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Copying file for artifacts
-      run: cp -i home/runner/work/java-kata-1/java-kata-1/target/java-kata-1-1-SNAPSHOT.jar java-kata/java-kata-1-1-SNAPSHOT.jar
+      run: cp -i target/java-kata-1-1-SNAPSHOT.jar java-kata/java-kata-1-1-SNAPSHOT.jar
     - name: Create Artifact Folder
       uses: actions/upload-artifact@v2
       with:
