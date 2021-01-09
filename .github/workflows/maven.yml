@@ -22,12 +22,10 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: show path
+      run: pwd
     - name: Create Artifact Folder
-      run: New-Item -Path '${{ github.workspace }}' -Name "Artifacts" -ItemType "directory"
-    - name: Copy Scripts
-      run: Copy 'Scripts/' '${{ github.workspace }}/Artifacts/Scripts'
-    - name: Publish Artifact
-      uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v2
       with:
-       path: ${{ github.workspace }}/Artifacts
-       name: ${{ github.run_number }}
+        name: kata-1
+        path: path/to/artifact/ # or path/to/artifact
