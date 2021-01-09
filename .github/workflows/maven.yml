@@ -27,5 +27,5 @@ jobs:
     - name: Create Artifact Folder
       uses: actions/upload-artifact@v2
       with:
-        name: kata-1
-        path: path/to/artifact/
+        name: java-kata
+        path: home/runner/work/java-kata-1/java-kata-1/target
